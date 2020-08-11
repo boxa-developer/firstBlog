@@ -33,6 +33,8 @@ def all_posts(request):
 # Authors API view
 @api_view(['GET'])
 @csrf_exempt
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
 def authors(request):
     auths = Author.objects.all()
     serializer = AuthorSerializer(auths, many=True)
@@ -41,6 +43,8 @@ def authors(request):
 
 @api_view(['POST'])
 @csrf_exempt
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
 def add_auth(request):
     data = request.data
     try:
@@ -62,6 +66,8 @@ def add_auth(request):
 # Tags API views
 @api_view(['GET'])
 @csrf_exempt
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
 def get_tags(request):
     all_tags = Tag.objects.all()
     serializer = TagSerializer(all_tags, many=True)
@@ -70,6 +76,8 @@ def get_tags(request):
 
 @api_view(['GET'])
 @csrf_exempt
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
 def get_tag(request, tag_id):
     tag = Tag.objects.get(id=tag_id)
     content = {
@@ -81,6 +89,8 @@ def get_tag(request, tag_id):
 
 @api_view(['POST'])
 @csrf_exempt
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
 def add_tag(request):
     data = request.data
     try:
@@ -99,6 +109,8 @@ def add_tag(request):
 
 @api_view(['PUT'])
 @csrf_exempt
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
 def update_tag(request):
     data = request.data
     tag = Tag.objects.get(id=data['id']).update(tag_title=data['tag'])
@@ -107,6 +119,8 @@ def update_tag(request):
 
 @api_view(['DELETE'])
 @csrf_exempt
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
 def delete_tag(request):
     data = request.data
     tag = Tag.objects.get(id=data['id'])
