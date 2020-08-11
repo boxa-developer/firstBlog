@@ -1,10 +1,12 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,authentication_classes,permission_classes
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Post, Author, Tag
 from .serialzers import AuthorSerializer, PostSerializer, TagSerializer
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import status
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 
 # General Info About API
@@ -20,6 +22,8 @@ def api_info(request):
 # Post API views
 @api_view(['GET'])
 @csrf_exempt
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
 def all_posts(request):
     posts = Post.objects.all()
     serializer = PostSerializer(posts, many=True)
