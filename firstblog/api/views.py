@@ -63,6 +63,19 @@ def add_auth(request):
                             )
 
 
+@api_view(['GET'])
+@csrf_exempt
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
+def get_auth(request, auth_id):
+    auth = Author.object.get(id=auth_id)
+    content = {
+        'id': auth_id,
+        'auth': f'{auth.author_firstname} {auth.author_lastname}',
+        'joined': auth.author_joined_date,
+    }
+    return JsonResponse(content, safe=False, status= status.HTTP_200_OK)
+
 # Tags API views
 @api_view(['GET'])
 @csrf_exempt

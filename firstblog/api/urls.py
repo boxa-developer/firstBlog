@@ -3,7 +3,8 @@ from .views import (
     all_posts, add_auth,
     authors, get_tags,
     add_tag, update_tag,
-    delete_tag, get_tag
+    delete_tag, get_tag,
+    get_auth,
 )
 
 urlpatterns = [
@@ -12,6 +13,7 @@ urlpatterns = [
     # Auth URL routing
     path('auth/add', add_auth, name='add_u'),
     path('auth/all', authors),
+    path('auth/get/<int:auth_id>', get_auth),
     # Tags URL routing
     path('tag/all', get_tags),
     path('tag/get/<int:tag_id>', get_tag),
