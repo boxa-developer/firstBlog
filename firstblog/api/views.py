@@ -68,7 +68,7 @@ def add_auth(request):
 @authentication_classes([SessionAuthentication, BasicAuthentication])
 @permission_classes([IsAuthenticated])
 def get_auth(request, auth_id):
-    auth = Author.object.get(id=auth_id)
+    auth = Author.objects.get(id=auth_id)
     content = {
         'id': auth_id,
         'auth': f'{auth.author_firstname} {auth.author_lastname}',
